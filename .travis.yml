@@ -11,7 +11,7 @@ script:
 
 after_success:
     - docker build -t djcaldas/multi-client ./client
-    - docker build -t djcaldas/multi-ngnix ./ngnix
+    - docker build -t djcaldas/multi-nginx ./nginx
     - docker build -t djcaldas/multi-server ./server
     - docker build -t djcaldas/multi-worker ./worker
     #Log IN to the docker CLI
