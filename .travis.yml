@@ -1,0 +1,23 @@
+language: generic
+sudo: required
+servicer:
+    - docker
+
+before_install:
+    - docker build -t djcaldas/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+    - docker run -e CI=true djcaldas/react-test npm run test
+
+after_success:
+    - docker build -t djcaldas/multi-client ./client
+    - docker build -t djcaldas/multi-ngnix ./ngnix
+    - docker build -t djcaldas/multi-server ./server
+    - docker build -t djcaldas/multi-worker ./worker
+    #Log IN to the docker CLI
+    - echo "$DOCKER_PASS" | docker login -u "$DOCKER_ID" --password-stdin
+    # Push Images
+    - docker push djcaldas/multi-client
+    - docker push djcaldas/multi-ngnix
+    - docker push djcaldas/multi-server
+    - docker push djcaldas/multi-worker
