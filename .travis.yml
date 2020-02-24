@@ -18,6 +18,6 @@ after_success:
     - echo "$DOCKER_PASS" | docker login -u "$DOCKER_ID" --password-stdin
     # Push Images
     - docker push djcaldas/multi-client
-    - docker push djcaldas/multi-ngnix
+    - docker push djcaldas/multi-nginx
     - docker push djcaldas/multi-server
     - docker push djcaldas/multi-worker
